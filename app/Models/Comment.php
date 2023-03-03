@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Comment extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'text',
+        'user_id',
+        'post_id',
+    ];
+
+    public function user(){
+        return $this->belongsTo(\App\Models\User::class,'user_id');
+    }
+
+    public function post(){
+        return $this->belongsTo(\App\Models\Post::class,'post_id');
+    }
+
+    public function likes(){
+        return $this->hasMany(\App\Models\Like::class,'comment_id');
+    }
+}
